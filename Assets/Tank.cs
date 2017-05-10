@@ -9,8 +9,8 @@ public class Tank : MonoBehaviour
 	[SerializeField] float shotSpeed;
 	private Vector3 muzzlePos;
 	public List<AxleInfo> axleInfos;
-	public float maxMotorTorque; // maximum torque the motor can apply to wheel
-	public float maxSteeringAngle; // maximum steer angle the wheel can have
+	public float maxMotorTorque;
+	public float maxSteeringAngle;
 
 	private Vector3 torque;
 	private float motor;
@@ -20,17 +20,6 @@ public class Tank : MonoBehaviour
 
 	public Rigidbody cannonBase;
 
-//	void Update()
-//	{
-//		float x = Input.GetAxis ("Vertical");
-//		float y = Input.GetAxis ("Horizontal");
-//
-//		if (upsideDown) {
-//			torque = new Vector3 (x * coefficient, y * coefficient, 0);
-//		} else {
-//			torque = new Vector3 ((x * coefficient) * -1, y * coefficient, 0);
-//		}	
-//	}
 	public void ApplyWheelPosition (WheelCollider collider)
 	{
 		Transform wheel = collider.transform.GetChild (0);
@@ -43,10 +32,6 @@ public class Tank : MonoBehaviour
 
 	void Update()
 	{
-//		target.AddTorque (torque);
-//		float motor = maxMotorTorque * Input.GetAxis("Vertical");
-//		float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-
 		if (Input.GetKey (KeyCode.T))
 		{
 			motor = maxMotorTorque * 1.0f;
@@ -111,6 +96,6 @@ public class AxleInfo
 {
 	public WheelCollider leftWheel;
 	public WheelCollider rightWheel;
-	public bool motor; // is this wheel attached to motor?
-	public bool steering; // does this wheel apply steer angle?
+	public bool motor;
+	public bool steering;
 }
