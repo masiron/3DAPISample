@@ -63,7 +63,7 @@ public class Tank : MonoBehaviour
 			muzzlePos = muzzle.transform.position;
 			GameObject Bullet = (GameObject)Instantiate (bulletPrefabs, muzzlePos, Quaternion.identity);
 			Rigidbody BulletRigid = Bullet.GetComponent<Rigidbody> ();
-			BulletRigid.AddForce (muzzlePos * shotSpeed);
+			BulletRigid.AddForce (muzzle.transform.forward * shotSpeed, ForceMode.Impulse);
 		}
 			
 		float cannonX = Input.GetAxis ("Vertical");
