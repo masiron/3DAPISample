@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour 
 {
-	[SerializeField] GameObject bulletPrefabs;
-	[SerializeField] GameObject muzzle;
+	[SerializeField] private GameObject bulletPrefabs;
+	[SerializeField] private GameObject muzzle;
 	[SerializeField] float shotSpeed;
 	private Vector3 muzzlePos;
-	public List<AxleInfo> axleInfos;
-	public float maxMotorTorque;
-	public float maxSteeringAngle;
+	[SerializeField] private List<AxleInfo> axleInfos;
+	[SerializeField] private float maxMotorTorque;
+	[SerializeField] private float maxSteeringAngle;
 
 	private Vector3 torque;
 	private float motor;
@@ -19,16 +19,6 @@ public class Tank : MonoBehaviour
 	private Quaternion rotate;
 
 	[SerializeField] Rigidbody cannonBase;
-
-	public void ApplyWheelPosition (WheelCollider collider)
-	{
-		Transform wheel = collider.transform.GetChild (0);
-
-
-		collider.GetWorldPose (out wheelPos, out rotate);
-		wheel.transform.position = wheelPos;
-		wheel.transform.rotation = rotate * Quaternion.Euler(0f, 0f, 90f);
-	}
 
 	void Update()
 	{
@@ -60,10 +50,7 @@ public class Tank : MonoBehaviour
 
 		if (Input.GetButtonDown ("Jump")) 
 		{
-			muzzlePos = muzzle.transform.position;
-			GameObject Bullet = (GameObject)Instantiate (bulletPrefabs, muzzlePos, Quaternion.identity);
-			Rigidbody BulletRigid = Bullet.GetComponent<Rigidbody> ();
-			BulletRigid.AddForce (muzzle.transform.forward * shotSpeed, ForceMode.Impulse);
+			Shot ();	
 		}
 			
 		float cannonX = Input.GetAxis ("Vertical");
@@ -88,6 +75,24 @@ public class Tank : MonoBehaviour
 	void FixedUpdate() 
 	{
 		cannonBase.AddTorque (torque);
+	}
+
+	void ApplyWheelPosition (WheelCollider collider)
+	{
+		Transform wheel = collider.transform.GetChild (0);
+
+
+		collider.GetWorldPose (out wheelPos, out rotate);
+		wheel.transform.position = wheelPos;
+		wheel.transform.rotation = rotate * Quaternion.Euler(0f, 0f, 90f);
+	}
+
+	void Shot ()
+	{
+		muzzlePos = muzzle.transform.position;
+		GameObject Bullet = (GameObject)Instantiate (bulletPrefabs, muzzlePos, Quaternion.identity);
+		Rigidbody BulletRigid = Bullet.GetComponent<Rigidbody> ();
+		BulletRigid.AddForce (muzzle.transform.forward * shotSpeed, ForceMode.Impulse);
 	}
 
 }
