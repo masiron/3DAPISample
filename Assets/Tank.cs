@@ -18,7 +18,7 @@ public class Tank : MonoBehaviour
 	private Vector3 wheelPos;
 	private Quaternion rotate;
 
-	public Rigidbody cannonBase;
+	[SerializeField] Rigidbody cannonBase;
 
 	public void ApplyWheelPosition (WheelCollider collider)
 	{
